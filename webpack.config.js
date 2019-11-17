@@ -1,4 +1,6 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -18,5 +20,14 @@ module: {
     }
   ]
 },
-plugins: [new HtmlWebPackPlugin({ template: "./src/index.html" })]
+plugins: [
+  new HtmlWebPackPlugin({ 
+    template: "./src/index.html" 
+  }),
+  new CopyWebpackPlugin([{
+    from: 'src/img/**',
+    to: path.resolve(__dirname, 'dist')
+  }]),
+  new ImageminPlugin()
+  ]
 };
